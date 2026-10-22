@@ -13,3 +13,9 @@ Local environment: macOS, Node25.9.0, Chrome156, FFmpeg/ffprobe installed. Node2
 Baseline skill evaluation exposed the original promotion in the template, signature, studio and sharing instructions. The revised independent evaluation produced Clawise-only frames and used actual checks to catch a partially copied template rather than claiming a successful screenshot was a finished film.
 
 Cross-platform installer permission handling has a Windows semantics regression test. Actual Windows execution, GitHub CI status and the cold remote installation are recorded after publication; they are not inferred from the macOS run.
+
+## Remote distribution verification
+
+Public GitHub commit baca598 was installed with an empty npm cache and a fresh Clawise state using exactly `npx --yes github:zimuoo/clawise-video-motionx install`. Ownership status reported managed and unmodified. The installed skill independently ran doctor, created clawise-launch, checked6 frames plus4 seek-history comparisons with0errors/0warnings, synthesized audio and rendered12s MP4. No source checkout was used by the installed engine.
+
+Initial CI: Ubuntu/macOS Node22 core suites passed. Windows exposed a test harness assumption that `npm` is directly executable; its `npm.cmd` wrapper must be run through Node's npm CLI entry for a no-shell subprocess. The fixture was corrected; installer/timeline behavior itself passed the other41 Windows tests. Final CI result is recorded on GitHub Actions.

@@ -117,7 +117,13 @@ test('npm tarball contains a runnable complete skill and excludes development ar
   await fs.writeFile(path.join(sandbox, 'THIRD_PARTY_NOTICES.md'), 'Notices');
   await fs.mkdir(path.join(sandbox, 'test'));
   await fs.writeFile(path.join(sandbox, 'test', 'private.test.js'), 'Development');
-  const pack = spawnSync('npm', ['pack', '--ignore-scripts', '--json'], { cwd: sandbox, encoding: 'utf8' });
+  // npm.cmd is a shell wrapper on Windows. Run npm's JS entry through Node
+  // so the fixture exercises the same literal-argument policy as the installer.
+  const npmArgs = ['pack', '--ignore-scripts', '--json'];
+  const npmCli = process.env.npm_execpath || path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js');
+  const pack = process.platform === 'win32'
+    ? spawnSync(process.execPath, [npmCli, ...npmArgs], { cwd: sandbox, encoding: 'utf8' })
+    : spawnSync('npm', npmArgs, { cwd: sandbox, encoding: 'utf8' });
   assert.equal(pack.status, 0, pack.stderr);
   const [release] = JSON.parse(pack.stdout);
   const names = release.files.map(file => file.path);

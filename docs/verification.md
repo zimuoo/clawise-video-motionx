@@ -21,3 +21,7 @@ Public GitHub commit baca598 was installed with an empty npm cache and a fresh C
 Final CI for code commit11ba4ce: all five jobs passed (three OS core jobs, Linux Node22/24 complete render suites). See https://github.com/zimuoo/clawise-video-motionx/actions/runs/39784999224 .
 
 The final cold GitHub install also initialized and source-checked all12 templates, then performed the full Clawise demo check/sound/render workflow. ZIP/npm package integrity and every ZIP manifest checksum were revalidated after the template distribution fix.
+
+## Published artifacts
+
+Version1.0.0 is published at https://github.com/zimuoo/clawise-video-motionx/releases/tag/v1.0.0 with the complete ZIP, npm tarball, original demo MP4/GIF and SHA256SUMS.txt. The public installation command uses this user-owned GitHub repository. npm registry publication remains separate and was not attempted without an authenticated npm account.

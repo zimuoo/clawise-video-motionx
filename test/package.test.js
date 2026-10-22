@@ -93,7 +93,8 @@ test('packaging rejects unsafe archive names and incomplete source', async t => 
 test('npm metadata exposes one executable with no dependencies and a release whitelist', async () => {
   const metadata = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
   assert.equal(metadata.name, 'clawise-video-motionx');
-  assert.equal(metadata.version, '1.0.0');
+  const engine = JSON.parse(await fs.readFile(path.join(root, 'skills/clawise-video-motionx/engine/package.json'), 'utf8'));
+  assert.equal(metadata.version, engine.version);
   assert.equal(metadata.type, 'module');
   assert.deepEqual(metadata.bin, { motionx: 'cli/motionx.js' });
   assert.equal(metadata.engines.node, '>=22');

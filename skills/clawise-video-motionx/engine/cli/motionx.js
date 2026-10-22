@@ -16,6 +16,7 @@ const HELP = `clawise-video-motionx ${VERSION} — motion graphics made by your 
 
   motionx grab <url|folder> [dir]   the product's real material into <dir>/materials/: page screenshots, logo, images, its colours and type (a URL), or the project's own screenshots, icons, media and stylesheet colours (a folder)
   motionx new <dir> [--template t]   start a project (motionx templates lists them)
+  motionx asset <dir> --file <local-media> --id <name> [--source user|clawise-image|clawise-tts|shanqian-ai]   import completed image/audio/video, return relative path and record provenance
   motionx templates                  starter projects and what each is good for
   motionx demo [dir]                 create the original Clawise film and open it in the studio
   motionx studio [dir]               live preview, direct edits, comments for the agent
@@ -123,6 +124,11 @@ async function main() {
       cpSync(join(PKG, 'runtime', 'motionx-timeline.js'), join(dir, 'vendor', 'motionx-timeline.js'));
       cpSync(join(PKG, 'runtime', 'motionx.js'), join(dir, 'vendor', 'motionx.js')); // MX.clock / MX.region / MX.cue, ready when needed
       return out(`created ${dir}\nnext: motionx studio ${pos[0]}`);
+    }
+
+    case 'asset': {
+      const { importAsset } = await import('./lib/assets.js');
+      return out(await importAsset(openProject(pos[0] || '.'), flags));
     }
 
     case 'templates': {

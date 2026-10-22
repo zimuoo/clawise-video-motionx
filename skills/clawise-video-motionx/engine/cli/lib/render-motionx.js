@@ -137,7 +137,7 @@ export async function renderOm(project, { fps, out, format = 'mp4', transparent 
     const soundFile = box.sound && join(tmp, box.sound.file);
     const sound = withSound.length ? encodeAudio(withSound, soundFile, { duration, codec: box.sound.codec }).then(async (r) => {
       // a single wrapped file must come out as loud as it went in (checked on the encoded track, while the picture renders)
-      r.loudness = checkLoudness(soundFile, withSound.length === 1 ? withSound.map((t) => t.file) : []);
+      r.loudness = checkLoudness(soundFile, r.mode === 'direct' ? withSound.map((t) => t.file) : []);
       return r;
     }) : Promise.resolve({ mode: 'none', tracks: 0 });
     sound.catch(() => {}); // awaited below; a failure there must not surface early as an unhandled rejection

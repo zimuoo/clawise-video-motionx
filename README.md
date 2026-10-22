@@ -37,7 +37,7 @@ npx --yes github:zimuoo/clawise-video-motionx update
 npx --yes github:zimuoo/clawise-video-motionx status
 ```
 
-也可以从 Releases 下载 `clawise-video-motionx-1.0.0.zip`，在 Clawise 的技能导入中选择 ZIP。它与命令安装包含同一个完整技能，没有依赖仓库父目录的路径。
+也可以从 Releases 下载 `clawise-video-motionx-1.1.0.zip`，在 Clawise 的技能导入中选择 ZIP。它与命令安装包含同一个完整技能，没有依赖仓库父目录的路径。
 
 ## 在 Clawise 里使用
 
@@ -48,6 +48,32 @@ npx --yes github:zimuoo/clawise-video-motionx status
 > 第 5 秒的标题太小，放大一点，其他部分保持。
 
 技能会选择方向、整理分镜、建立本地工程、检查真实关键帧，再导出。默认无平台水印；客户视频使用客户品牌。配音优先导入已有音频或接入 Clawise 中实际可用的语音能力，安装不会下载模型。
+
+## 图片、声音、视频一起做
+
+MotionX 现在能协作使用 Clawise 已有能力：
+
+| 内容 | 执行能力 |
+|---|---|
+| 插画、背景、关键帧、参考图修改 | Clawise 图片插件的 `image_generate`，沿用当前图片模型配置 |
+| 口播配音 | Clawise TTS 插件，先选实际音色再合成 |
+| 图生视频、文生视频、数字人、克隆音色与混剪 | 已安装并启用的 `shanqian-ai`，按它自己的工作流程执行 |
+| 标题、字幕、代码动效、镜头编排与成片 | MotionX 本地工作台和渲染引擎 |
+
+例如：
+
+> 用图片插件生成开场插画，再用山谦把这张图做成视频，加普通话配音，编排为一段 12 秒、16:9 的产品短片，交付可编辑工程和 MP4。
+
+生成任务成功后，使用新命令把真实本地文件归档进工程：
+
+```sh
+npx --yes github:zimuoo/clawise-video-motionx asset ./film --file "/actual/generated/background.png" --id intro --source clawise-image
+npx --yes github:zimuoo/clawise-video-motionx asset ./film --file "/actual/delivered/shot.mp4" --id opening-shot --source shanqian-ai
+```
+
+`asset` 需要已建立的工程、FFmpeg 和 ffprobe，校验素材可完整解码后返回相对路径与真实尺寸/时长，写入 `assets/media.json`；之后由 agent 将素材接入画面。它不单独调用生图或 TTS。工程携带实际素材，移动后不依赖插件临时目录；同名 id 不覆盖已有版本。
+
+协作能力是可选项，需要在 Clawise 中实际可用；安装 MotionX 不会自动安装或启用山谦、图片/TTS 插件，也不会复制它们的配置和凭据。缺失时会说明受阻步骤，保留可继续编辑的工程。详见[协作流程](skills/clawise-video-motionx/references/multimedia.md)。
 
 ## 直接体验命令
 
@@ -75,7 +101,8 @@ npx --yes github:zimuoo/clawise-video-motionx render ./my-clawise-film --workers
 | 本地预览 / 关键帧 | `studio ./film` / `still ./film --at 1,5,10` |
 | 画面反馈与处理 | `inbox ./film` / `look <id> ./film` / `done <id> ./film --note "改动"` |
 | 检查与导出验收 | `check ./film` / `render ./film` / `qa ./film` |
-| 音频导入 / 本地配乐 | `voice ./film --audio ./voice.wav --text ./script.txt --asr off --fit` / `sound ./film` |
+| 音频导入 / 本地配乐 | `voice ./film --audio ./voice.wav --text ./script.txt --asr off` / `sound ./film` |
+| 生图、山谦、TTS 素材归档 | `asset ./film --file /actual/file.mp4 --id shot --source shanqian-ai` |
 | 透明叠加 / GIF | `render ./film --transparent` / `render ./film --format gif` |
 | 本地分享包 / 可编辑网页 | `share ./film` / `export html ./film` |
 

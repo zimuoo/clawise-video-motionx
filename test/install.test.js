@@ -34,7 +34,8 @@ test('installs the complete skill and reports managed version and clean content'
   assert.equal(result.installed, true);
   assert.equal(result.managed, true);
   assert.equal(result.modified, false);
-  assert.equal(result.version, '1.0.0');
+  const metadata = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
+  assert.equal(result.version, metadata.version);
   assert.equal(await fs.readFile(path.join(f.target, 'engine', 'fonts', 'LICENSE'), 'utf8'), 'Font license');
   assert.match(await fs.readFile(path.join(f.target, '.motionx-install.json'), 'utf8'), /sha256/);
 });

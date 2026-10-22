@@ -1,12 +1,14 @@
 ---
 name: clawise-video-motionx
-description: Create and edit motion graphics, product launch videos, animated explainers, UI demonstrations, kinetic typography and short video loops as local editable HTML/Canvas/SVG/Three.js projects. Use for 动效视频、产品发布片、动画解说、界面演示、动态图文、视频片头、短循环，或对画面指定位置提出修改。Includes a local Clawise preview studio, frame comments, deterministic rendering and MP4/MOV/WebM/GIF export.
+description: Use for editable motion graphics, product launch videos, animated explainers, UI demonstrations, kinetic typography and short loops; 动效视频、产品发布片、动画解说、动态图文、视频片头、指着画面改，或将 Clawise 生图、TTS 配音与山谦 AI 视频素材编排成可编辑短片。
 license: MIT; bundled fonts and third-party notices retain their respective licenses.
 ---
 
 # Clawise Video MotionX
 
 把用户的内容变成可编辑、可预览、可导出的动画。默认使用真实产品素材和本地资源，交付工程与成片。
+
+需要图片、声音、AI 视频时，读取 [multimedia.md](references/multimedia.md)：Clawise 图片插件生图，Clawise TTS 配音，已安装的 `shanqian-ai` 生成视频、数字人或混剪素材，MotionX 负责统一编排。按用户指定的能力执行；这些能力是可选协作项，不随安装器复制或自动启用。
 
 ## 入口和边界
 
@@ -27,10 +29,11 @@ license: MIT; bundled fonts and third-party notices retain their respective lice
 1. **理解内容并收集素材。** 明确一个观看后应记住的信息。`motionx grab <project-folder|url> <film-folder>` 可收集产品材料；优先项目中已有的 logo、UI 截图、录屏、图标、字体。产品功能、客户评价、数值均应有来源。缺素材时用明确标注的占位，不伪造真实截图或指标。
 2. **定方向和分镜。** 阅读 [director.md](references/director.md) 和 [craft.md](references/craft.md)。直接选择适合内容的一套视觉方向，记录到工程的 `direction.md`；用户要比较时再出多个方向。用 3–5 个关键帧列出信息、主体、动作、镜头和时长。先确定构图，再加运动。
 3. **建立工程。** `motionx templates` 查看可用模板；`motionx new <film-folder> --template <name>` 不覆盖已有 `index.html`。按内容选用 blank、keynote-ui、talking-head、kinetic-type、math-explainer、finance-chart、flat-science、editorial-collage、whiteboard、ui-space、object-3d 或 clawise-launch。模板是结构起点，替换其示例文案和素材。`motionx demo <folder> --no-open` 展示自带 Clawise 示例。
-4. **实现可编辑画面。** 阅读 [contract.md](references/contract.md)。用户会修改的标题、数值、颜色与停留时间声明成 composition variables；可点击对象设稳定 `data-mx-id`；分镜设 `scene:` labels。`motionx set title=… <folder>` 可改变量。项目资源使用相对路径；不依赖 CDN。
-5. **先预览和检查。** `motionx studio <folder> --no-open` 启动本机预览，保留进程并给用户实际返回的 URL。运行 `motionx still <folder> --at 0.5,3,7`，用可用的图像查看工具检查实际图片；选时间应覆盖每个场景，不能只看首尾。运行 `motionx check <folder>`，处理错误；对剩余警告说明证据。不要把机械检查通过等同于创意完成。
-6. **处理音频。** 有口播时优先接入 Clawise 中实际可用的语音能力或用户录音，再用 `motionx voice <folder> --audio <file> --text <script.txt> --asr off --fit` 导入。`--asr off` 的词时间来自静音区间估算，必须按试听修正，不能声称逐词精确。需要本机 TTS/ASR 时先阅读 [voice.md](references/voice.md)；模型下载必须显式选择 `--allow-download`。无配音的短片可用 `motionx sound <folder>` 本地合成配乐；静音循环用 `motionx sound <folder> --off`，渲染加 `--silent`。
-7. **导出和交付。** 修改后重新 `check`，运行 `motionx render <folder> --workers 2`，再对实际视频运行 `motionx qa <folder>`。按需使用 `--blur`、`--format webm|mov|gif`；透明叠加用 `--transparent`。交付已存在的成片绝对路径、工程路径、预览地址和未解决的问题。只有用户需要分享材料时运行 `motionx share <folder>` 或 `motionx export html <folder>`；这些命令只生成本地文件。对外发布或上传需遵循用户授权。
+4. **生成并归档所需素材。** 插画、背景图用当前可用的 `image_generate`；先读取工具 schema，沿用 Clawise 已配置的图片模型。图生视频、数字人等读取实际安装的 `shanqian-ai/SKILL.md` 及相应参考，使用它自己的 helper。异步任务必须成功并取得实际本地文件，才能执行 `motionx asset <folder> --file <file> --id <name> --source <source>`。来源取 `clawise-image`、`clawise-tts` 或 `shanqian-ai`。命令返回相对路径和媒体信息，写入 `assets/media.json`；它归档素材，不自动改画面。详情及故障处理见 [multimedia.md](references/multimedia.md)。
+5. **实现可编辑画面。** 阅读 [contract.md](references/contract.md)。用户会修改的标题、数值、颜色与停留时间声明成 composition variables；可点击对象设稳定 `data-mx-id`；分镜设 `scene:` labels。`motionx set title=… <folder>` 可改变量。使用 `asset` 返回的相对路径加入画面，并显式设置视频的片内起点、素材起点和时长；不依赖 CDN。
+6. **先预览和检查。** `motionx studio <folder> --no-open` 启动本机预览，保留进程并给用户实际返回的 URL。运行 `motionx still <folder> --at 0.5,3,7`，用可用的图像查看工具检查实际图片；选时间应覆盖每个场景，不能只看首尾。运行 `motionx check <folder>`，处理错误；对剩余警告说明证据。不要把机械检查通过等同于创意完成。
+7. **处理音频。** 优先使用用户录音；需合成时用 `clawise_tts_list_voices` 选择实际音色，再调用 `clawise_tts_synthesize`，读取其 `outputPath`。山谦克隆音色和数字人需求交由已安装的山谦技能处理，不假定它有独立的通用 TTS 动作。用 `motionx voice <folder> --audio <file> --text <script.txt> --asr off` 导入。只有允许片长跟随配音时才加 `--fit`；固定时长先校对实际音频长度与分镜，不能截断口播。`--asr off` 是估算词时间，必须试听修正。接口例子见 [voice.md](references/voice.md)。无配音的短片可用 `motionx sound <folder>` 本地合成配乐；静音循环用 `motionx sound <folder> --off`，渲染加 `--silent`。
+8. **导出和交付。** 修改后重新 `check`，运行 `motionx render <folder> --workers 2`，再对实际视频运行 `motionx qa <folder>`。按需使用 `--blur`、`--format webm|mov|gif`；透明叠加用 `--transparent`。交付已存在的成片绝对路径、工程路径、预览地址、使用的素材来源和未解决的问题。只有用户需要分享材料时运行 `motionx share <folder>` 或 `motionx export html <folder>`；这些命令只生成本地文件。对外发布或上传需遵循用户授权。
 
 ## 指着画面改
 
@@ -52,6 +55,7 @@ license: MIT; bundled fonts and third-party notices retain their respective lice
 |---|---|
 | 工程、变量、场景、对象选择 | [contract.md](references/contract.md) |
 | 时间轴能力与限制 | [timeline.md](references/timeline.md) |
+| Clawise 生图、TTS、山谦视频协作与素材归档 | [multimedia.md](references/multimedia.md) |
 | 产品演示连续性 | [product-demo-continuity.md](references/product-demo-continuity.md) |
 | 视觉方向和构图 | [visual-direction.md](references/visual-direction.md)、[library/README.md](references/library/README.md) |
 | 口播字幕、音频导入 | [voice.md](references/voice.md)、[talking-head.md](references/talking-head.md) |

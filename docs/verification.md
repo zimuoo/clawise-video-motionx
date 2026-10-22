@@ -1,4 +1,15 @@
-# Verification · 1.0.0
+# Verification
+
+## 1.1.0 · multimedia collaboration
+
+- Verified the actual Clawise image provider registration and runtime `image_generate` integration, TTS tool names/parameters/result file contract, and the locally installed `shanqian-ai` skill. Only the optional collaboration instructions and normal media handoff are distributed; no companion helpers, private service details, keys or machine paths are bundled.
+- Baseline skill evaluation could not determine image/Shanqian invocation, async completion or portable result handoff. Independent forward evaluation of the revised skill completed the routing plan for a fixed 12-second image → generated footage → Mandarin narration request and handled unavailable capabilities without invented tools or false success.
+- Local installer/package/timeline/asset selection:49 tests passed,0 failed. The8 new asset tests cover real image/audio/video metadata, byte-identical portable copies, source records, repeated import, collision/edit protection, invalid and truncated files, output symlinks, and concurrent manifest preservation.
+- Actual mixed-media render plus audio regression selection:5 passed,0 failed. Synthetic fixtures represent Clawise image, TTS and Shanqian file outputs; after removing the originals and relocating the project, the real renderer produced the expected image pixels, footage window, audio stream, fixed1.2-second duration and half-volume narration. This caught and fixed a raw-source loudness comparison incorrectly rejecting intentionally adjusted audio.
+- Skill metadata validation, `git diff --check`, complete ZIP build and actual npm payload relocation passed. No live image/TTS/Shanqian generation was submitted for these tests; generation-provider availability and quality remain properties of the user's configured capabilities.
+- Final local `npm test`:235 tests,225 passed,10 optional skips,0 failures (75 seconds). The same optional sample-pack/benchmark skips as1.0.0 remain. A real1.1.0 npm tarball was extracted, installed into a fresh state, used to create a project and import an image; status reported managed and unmodified.
+
+## 1.0.0
 
 Local environment: macOS, Node25.9.0, Chrome156, FFmpeg/ffprobe installed. Clean-checkout CI verified Node22/24 rendering on Linux and Node22 installer/package checks on Ubuntu, macOS and Windows.
 

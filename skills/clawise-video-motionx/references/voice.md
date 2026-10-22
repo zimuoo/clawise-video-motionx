@@ -1,12 +1,29 @@
 # 语音、录音与字幕
 
-优先使用用户已有录音或 Clawise 中当前可用且已配置的语音能力；本技能没有绑定一个云 TTS 厂商，也不保存 API key。取得实际音频文件后：
+优先使用用户已有录音。需要合成时，使用已启用的 Clawise TTS 插件；本技能不保存 API key。
+
+1. 调用 `clawise_tts_list_voices`，按实际需要传 `locale: "zh-CN"`、语言、性别或风格过滤；从结果选择真实 `shortName`，不猜音色 id。
+2. 调用 `clawise_tts_synthesize`，参数 `text` 为完整脚本，`voice` 为所选 shortName；`outputPath` 可指定工程内实际绝对输出路径。`rate`、`pitch`、`volume` 为百分比字符串，`style` 仅传音色实际支持值。先检查当前会话工具 schema。
+3. 只接受 `ok: true` 且非空的 `outputPath` 文件作为成功。返回没有逐词时间戳，不能当成精准字幕。
+4. 可用 `motionx asset ./film --file <outputPath> --id narration --source clawise-tts` 归档，再把返回相对路径传给 `voice`。
+
+插件调用参数示例（不是 shell 命令）：
+
+```json
+{"text":"欢迎体验 Clawise。","voice":"<实际 shortName>","outputPath":"<工程绝对路径>/assets/narration.mp3","rate":"+0%"}
+```
+
+山谦克隆音色、数字人或混剪中的配音按 [multimedia.md](multimedia.md) 交给已安装的 `shanqian-ai`；不假设它存在独立 TTS 工具。
+
+取得实际音频后，按归档返回的路径导入：
 
 ```sh
-motionx voice ./film --audio ./voice.wav --text ./script.txt --asr off --fit
+motionx voice ./film --audio ./film/assets/generated/narration-HASH.mp3 --text ./script.txt --asr off
 ```
 
 生成 `assets/voice.wav`、`assets/voice.words.json`、版本化 `.srt` 和 HTML 里的 `motionx-cues`。静音区间法是估算，需要试听核对。`MX.cue('词')` 可把画面锚定到已导入词时间。
+
+示例 HASH 用真实归档结果替换。只有允许片长跟随音频时才增加 `--fit`；用户指定固定时长时，先检查真实时长并调整文案或节奏，不能静默截断语音或改变片长。
 
 本机可选项：
 

@@ -194,7 +194,7 @@ test('applyChain: bass chain stays dry and centred; keys chain widens a mono sou
   assert.ok(rms(kl.map((v, i) => v - kr[i]), 24000) > 0.01, 'keys get stereo');
 });
 
-test('performance: 30 s stereo plate < 1.5 s, one channel chain < 1 s', (t) => {
+test('performance: 30 s stereo plate < 1.5 s, one channel chain < 1 s', { skip: process.env.MOTIONX_BENCH !== '1' && 'opt-in hardware benchmark: npm run test:bench' }, (t) => {
   const mk = () => { const L = noiseBuf(30, 0.3), R = noiseBuf(30, 0.3); return [L, R]; };
   let [L, R] = mk(); let t0 = performance.now(); plate(L, R, { preset: 'hall' });
   const tp = performance.now() - t0;

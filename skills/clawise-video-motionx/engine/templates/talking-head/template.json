@@ -10,7 +10,6 @@
   ],
   "aspect": "16:9 or 9:16",
   "copy": {
-    "templates/blank/vendor": "vendor",
     "fonts/NotoSansSC-500.woff": "assets/fonts/NotoSansSC-500.woff",
     "fonts/NotoSansSC-900.woff": "assets/fonts/NotoSansSC-900.woff",
     "fonts/Inter-var.woff": "assets/fonts/Inter-var.woff",

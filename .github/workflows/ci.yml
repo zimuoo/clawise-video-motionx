@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Installer, ZIP, relocation and independent timeline
-        run: node --test test/install.test.js test/package.test.js test/state.test.mjs test/branding.test.mjs test/motionx-timeline.test.mjs test/encoder-stream.test.mjs
+        run: node --test test/install.test.js test/package.test.js test/state.test.mjs test/branding.test.mjs test/motionx-timeline.test.mjs test/encoder-stream.test.mjs test/distribution.test.mjs
       - run: npm run pack:skill
       - run: npm pack --dry-run
   render:

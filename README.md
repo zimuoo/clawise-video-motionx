@@ -99,6 +99,6 @@ npm run pack:skill
 npm pack
 ```
 
-项目没有 npm 运行依赖。`pack:skill` 生成带校验清单的完整 ZIP，排除测试、历史、缓存和嵌套技能。GitHub Actions 验证安装、包移动、模板资源、时间轴和真实浏览器渲染。
+项目没有 npm 运行依赖。硬件相关的音频速度基准用 `npm run test:bench` 单独运行，普通 CI 不把共享机器的固定毫秒阈值当作正确性判断。`pack:skill` 生成带校验清单的完整 ZIP，排除测试、历史、缓存和嵌套技能。GitHub Actions 验证安装、包移动、模板资源、时间轴和真实浏览器渲染。
 
 [MIT](LICENSE)。字体与 three.js 保留各自授权，来源与改造边界见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。产品界面和默认输出统一为 Clawise；法定版权声明完整保留。

@@ -38,7 +38,8 @@
   ],
   "scripts": {
     "test": "node --test --test-concurrency=2 test/*.test.js test/*.test.mjs skills/clawise-video-motionx/engine/runtime/clip/test/*.test.js",
-    "pack:skill": "node scripts/package.mjs"
+    "pack:skill": "node scripts/package.mjs",
+    "test:bench": "node scripts/benchmark.mjs"
   },
   "repository": {
     "type": "git",

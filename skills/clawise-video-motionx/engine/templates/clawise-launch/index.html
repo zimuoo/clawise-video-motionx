@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN" data-mx-signature="off" data-composition-variables='[
+ {"id":"title","type":"string","label":"开场标题","default":"让想法，变成行动"},
+ {"id":"subtitle","type":"string","label":"开场副标题","default":"从一个目标，到一次完整创作。"},
+ {"id":"endTitle","type":"string","label":"结尾标题","default":"创作，自有节奏。"},
+ {"id":"accent","type":"color","label":"强调色","default":"#87e5ce"},
+ {"id":"endHold","type":"number","label":"片尾停留","default":2,"min":1,"max":6,"step":0.1}
+]'>
+<head><meta charset="utf-8"><title>Clawise · 创作，自有节奏</title>
+<script src="vendor/motionx-timeline.js"></script>
+<style id="motionx-fonts">
+@font-face{font-family:Inter;src:url(assets/fonts/Inter-var.woff) format('woff');font-weight:100 900}
+@font-face{font-family:Noto;src:url(assets/fonts/NotoSansSC-500.woff) format('woff');font-weight:500}
+@font-face{font-family:Noto;src:url(assets/fonts/NotoSansSC-900.woff) format('woff');font-weight:900}
+</style>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b191b}
+#film{position:relative;width:100%;height:100%;overflow:hidden;color:#f4f7ef;background:#0b191b;font-family:Inter,Noto,sans-serif}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:80px 80px}
+.glow{position:absolute;width:1100px;height:1100px;right:-420px;top:-500px;border-radius:50%;background:radial-gradient(circle,#286b634a,transparent 68%)}
+.brand{position:absolute;left:110px;top:72px;display:flex;align-items:center;gap:22px;font-size:34px;font-weight:700;letter-spacing:-1px}
+.brand img{width:44px;height:44px}.edition{position:absolute;right:110px;top:82px;font-size:19px;letter-spacing:3px;color:#90aaa6}
+.scene{position:absolute;inset:0}.eyebrow{position:absolute;top:276px;left:150px;color:var(--accent);font-size:23px;letter-spacing:7px}
+h1,h2,p{margin:0}.hero{position:absolute;left:144px;top:350px;font-size:112px;font-weight:900;line-height:1.25;letter-spacing:-6px}.sub{position:absolute;left:150px;top:546px;font-size:31px;color:#adbfbb;letter-spacing:2px}
+.orbit{position:absolute;right:200px;top:360px;width:150px;height:150px;border:1px solid #87e5ce40;border-radius:35px;transform:rotate(-12deg)}
+.orbit i{position:absolute;inset:30px;background:var(--accent);border-radius:18px;transform:rotate(24deg)}
+.chapter{position:absolute;left:150px;top:260px;color:var(--accent);font-size:22px;letter-spacing:5px}.section-title{position:absolute;left:145px;top:320px;font-size:68px;font-weight:900;letter-spacing:-3px}
+.cards{position:absolute;left:150px;top:490px;display:flex;gap:24px}.card{position:relative;width:430px;height:218px;padding:36px;border:1px solid #33504e;border-radius:20px;background:#122728}
+.no{font-size:20px;color:var(--accent);letter-spacing:3px}.card h3{font-family:Noto,sans-serif;font-weight:900;font-size:38px;margin:30px 0 12px}.card p{font-family:Noto,sans-serif;font-size:21px;color:#a8bfba}
+.line{position:absolute;left:150px;top:860px;width:1620px;height:2px;background:#33504e}.line i{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left}
+.tag{position:absolute;left:150px;top:800px;color:#9bb5b0;font-size:20px;letter-spacing:2px}
+.end-word{position:absolute;left:145px;top:350px;font-size:176px;font-weight:700;letter-spacing:-10px}.end-title{position:absolute;left:150px;top:590px;font-family:Noto,sans-serif;font-size:57px;font-weight:900;letter-spacing:2px}.end-note{position:absolute;left:150px;top:730px;font-size:24px;letter-spacing:5px;color:var(--accent)}
+.footer{position:absolute;bottom:62px;left:110px;color:#75938b;font-size:17px;letter-spacing:2px}.page-number{position:absolute;right:110px;bottom:62px;font-size:18px;color:#75938b}
+</style></head><body>
+<div id="film" data-composition-id="film" data-width="1920" data-height="1080">
+ <div class="grid"></div><div class="glow"></div>
+ <div class="brand" data-mx-id="brand"><img src="assets/clawise-mark.svg" alt="Clawise">Clawise</div><div class="edition">VIDEO MOTIONX</div>
+ <section class="scene" id="intro">
+  <div class="eyebrow">IDEA → ACTION</div>
+  <h1 class="hero" data-mx-id="title" data-var-text="title">让想法，变成行动</h1>
+  <p class="sub" data-mx-id="subtitle" data-var-text="subtitle">从一个目标，到一次完整创作。</p>
+  <div class="orbit" data-mx-id="accent-object"><i></i></div>
+ </section>
+ <section class="scene" id="workflow">
+  <div class="chapter">01 / YOUR WORKFLOW</div><h2 class="section-title">每一步，都有方向。</h2>
+  <div class="cards">
+   <article class="card" data-mx-id="goal"><span class="no">01 · GOAL</span><h3>明确目标</h3><p>把想法，说清楚。</p></article>
+   <article class="card" data-mx-id="create"><span class="no">02 · CREATE</span><h3>展开创作</h3><p>用合适的工具，推动进展。</p></article>
+   <article class="card" data-mx-id="refine"><span class="no">03 · REFINE</span><h3>持续打磨</h3><p>预览、反馈，再向前一步。</p></article>
+  </div><div class="tag">目标 → 创作 → 反馈</div>
+ </section>
+ <section class="scene" id="ending"><h2 class="end-word" data-mx-id="wordmark">Clawise<span style="color:var(--accent)">.</span></h2><p class="end-title" data-var-text="endTitle" data-mx-id="endTitle">创作，自有节奏。</p><div class="end-note">MAKE ROOM FOR YOUR NEXT IDEA</div></section>
+ <div class="line"><i></i></div><div class="footer">CLAWISE · 原创动效示例 / 非产品界面截图</div><div class="page-number">MOTION / 001</div>
+</div>
+<script>
+const V=MX.vars();
+const tl=MotionX.timeline({paused:true,defaults:{ease:'power3.out'}});
+tl.addLabel('scene:intro',0)
+ .fromTo('.brand',{opacity:0,y:-16},{opacity:1,y:0,duration:.6},0)
+ .fromTo('.eyebrow',{opacity:0,y:18},{opacity:1,y:0,duration:.7},.1)
+ .fromTo('.hero',{opacity:0,y:60},{opacity:1,y:0,duration:.9},.25)
+ .fromTo('.sub',{opacity:0,y:24},{opacity:1,y:0,duration:.8},.6)
+ .fromTo('.orbit',{scale:.6,opacity:0},{scale:1,opacity:1,duration:1.1},.5)
+ .to('#intro',{opacity:0,y:-36,duration:.5},3)
+ .addLabel('scene:workflow',3.5)
+ .fromTo('#workflow',{opacity:0,y:48},{opacity:1,y:0,duration:.7},3.5)
+ .fromTo('.card',{opacity:0,y:55},{opacity:1,y:0,duration:.7,stagger:.18},3.7)
+ .to('#workflow',{opacity:0,y:-32,duration:.5},7.4)
+ .addLabel('scene:ending',8)
+ .fromTo('#ending',{opacity:0,y:36},{opacity:1,y:0,duration:.9},8)
+ .fromTo('.line i',{scaleX:0},{scaleX:1,duration:9,ease:'none'},0)
+ .to({}, {duration:V.endHold},10);
+window.__timelines.film=tl;
+</script></body></html>

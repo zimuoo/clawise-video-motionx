@@ -1,0 +1,15 @@
+{
+ "title":"Clawise Launch",
+ "summary":"Original Clawise launch film: idea, workflow, closing wordmark. Editable text, colour and end hold; 12 seconds by default.",
+ "best_for":["Clawise getting started","a product launch structure","a verified local demo"],
+ "aspect":"16:9",
+ "copy":{
+  "runtime/motionx-timeline.js":"vendor/motionx-timeline.js",
+  "LICENSE":"vendor/MOTIONX-LICENSE.txt",
+  "fonts/Inter-var.woff":"assets/fonts/Inter-var.woff",
+  "fonts/NotoSansSC-500.woff":"assets/fonts/NotoSansSC-500.woff",
+  "fonts/NotoSansSC-900.woff":"assets/fonts/NotoSansSC-900.woff",
+  "fonts/OFL.txt":"assets/fonts/OFL.txt",
+  "fonts/LICENSES.md":"assets/fonts/LICENSES.md"
+ }
+}

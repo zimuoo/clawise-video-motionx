@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.woff binary
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.mp4 binary
+*.gif binary
+# Keep vendored shader source and license text verbatim.
+skills/clawise-video-motionx/engine/runtime/three/three.min.js -whitespace
+skills/clawise-video-motionx/engine/fonts/OFL.txt -whitespace
+skills/clawise-video-motionx/engine/templates/blank/assets/fonts/OFL.txt -whitespace

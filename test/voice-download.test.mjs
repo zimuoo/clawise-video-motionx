@@ -1,0 +1,22 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,mkdirSync,writeFileSync,existsSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+const engine=new URL('../skills/clawise-video-motionx/engine/cli/motionx.js',import.meta.url).pathname;
+const ff=spawnSync('ffmpeg',['-version']).status===0;
+test('recording ASR refuses model network access without explicit opt-in',{skip:!ff||process.platform==='win32'},()=>{
+ const dir=mkdtempSync(join(tmpdir(),'motionx-download-'));
+ const bin=join(dir,'bin');mkdirSync(bin);const project=join(dir,'project');mkdirSync(project);
+ writeFileSync(join(project,'index.html'),'<!doctype html><html><div data-composition-id="film" data-width="320" data-height="180"></div></html>');
+ writeFileSync(join(bin,'whisper-cli'),'#!/bin/sh\nexit 75\n',{mode:0o755});
+ const marker=join(dir,'network-called');
+ writeFileSync(join(bin,'curl'),`#!/bin/sh\ntouch '${marker}'\nexit 76\n`,{mode:0o755});
+ const audio=join(dir,'voice.wav');
+ assert.equal(spawnSync('ffmpeg',['-v','error','-f','lavfi','-i','sine=frequency=330:duration=1',audio]).status,0);
+ const child=spawnSync(process.execPath,[engine,'voice',project,'--audio',audio,'--text','hello','--asr','on','--model','motionx-download-test-missing'],{encoding:'utf8',env:{...process.env,MOTIONX_HOME:join(dir,'state'),PATH:bin+':'+process.env.PATH}});
+ assert.notEqual(child.status,0);
+ assert.match(child.stderr,/--allow-download/);
+ assert.equal(existsSync(marker),false,'curl must not run without opt-in');
+});

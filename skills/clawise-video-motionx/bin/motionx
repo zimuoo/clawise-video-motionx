@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+// The bundled engine is required. Never fetch an unrelated package as a fallback.
+import('../engine/cli/motionx.js').catch(error => {
+  process.stderr.write(`Clawise MotionX could not start: ${error.message}\nReinstall the complete skill, including engine/.\n`);
+  process.exitCode = 1;
+});

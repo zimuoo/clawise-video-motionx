@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clawise Video MotionX"
+  short_description: "用真实素材制作可编辑的产品动效、解说动画与短视频"
+  default_prompt: "Use $clawise-video-motionx to create or refine an editable motion video, preview the actual frames, and export a verified local result."

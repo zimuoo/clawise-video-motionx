@@ -1,0 +1,22 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readdirSync,mkdtempSync,readFileSync,existsSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {openProject} from '../skills/clawise-video-motionx/engine/cli/lib/project.js';
+import {checkSource} from '../skills/clawise-video-motionx/engine/cli/lib/check.js';
+const engine=fileURLToPath(new URL('../skills/clawise-video-motionx/engine/',import.meta.url));
+const templates=readdirSync(join(engine,'templates')).filter(n=>existsSync(join(engine,'templates',n,'index.html')));
+for(const template of templates)test(`bundled template ${template}: new copies every declared resource and source-checks without errors`,t=>{
+ const dir=mkdtempSync(join(tmpdir(),'motionx-template-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
+ const target=join(dir,'film');
+ const child=spawnSync(process.execPath,[join(engine,'cli/motionx.js'),'new',target,'--template',template],{encoding:'utf8'});
+ assert.equal(child.status,0,child.stderr);
+ const meta=JSON.parse(readFileSync(join(engine,'templates',template,'template.json'),'utf8'));
+ for(const dest of Object.values(meta.copy||{}))assert.ok(existsSync(join(target,dest)),dest);
+ assert.ok(existsSync(join(target,'vendor/motionx-timeline.js')));
+ assert.ok(existsSync(join(target,'vendor/MOTIONX-LICENSE.txt')));
+ assert.deepEqual(checkSource(openProject(target)).filter(x=>x.level==='error'),[]);
+});

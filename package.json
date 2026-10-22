@@ -1,0 +1,53 @@
+{
+  "name": "clawise-video-motionx",
+  "version": "1.0.0",
+  "description": "Self-contained Clawise video motion skill, local studio and deterministic rendering engine",
+  "type": "module",
+  "bin": {
+    "motionx": "cli/motionx.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "cli/",
+    "skills/clawise-video-motionx/",
+    "README.md",
+    "LICENSE",
+    "README.en.md",
+    "THIRD_PARTY_NOTICES.md",
+    "!**/node_modules/**",
+    "!**/.git/**",
+    "!**/test/**",
+    "!**/tests/**",
+    "!**/.history/**",
+    "!**/.motionx-history/**",
+    "!**/.cache/**",
+    "!**/__pycache__/**",
+    "!**/dist/**",
+    "!**/build/**",
+    "!**/research/**",
+    "!**/history/**",
+    "!**/__tests__/**",
+    "!**/.next/**",
+    "!**/.turbo/**",
+    "!**/*.test.*",
+    "!skills/clawise-video-motionx/*/**/SKILL.md",
+    "!**/coverage/**",
+    "!**/.DS_Store"
+  ],
+  "scripts": {
+    "test": "node --test --test-concurrency=2 test/*.test.js test/*.test.mjs skills/clawise-video-motionx/engine/runtime/clip/test/*.test.js",
+    "pack:skill": "node scripts/package.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zimuoo/clawise-video-motionx.git"
+  },
+  "homepage": "https://github.com/zimuoo/clawise-video-motionx#readme",
+  "bugs": "https://github.com/zimuoo/clawise-video-motionx/issues",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
